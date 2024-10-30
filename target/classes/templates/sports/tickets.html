@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Tickets</title>
+<link rel="stylesheet" th:href="@{/css/tickets.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+	<div class="header">
+		<a th:href="|/sports/overview|"><Button class="btn-black"><i class="fas fa-arrow-left"></i></Button></a>
+		<h2 th:text="#{button_tickets}"></h2>
+		<form th:action="@{/logout}" method="post">
+			<Button type="submit"class="btn-red" th:text="Logout"></Button> 
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+		</form>
+	</div> 
+	<table th:each="ticket: ${tickets}">
+		<tr>
+			<td>Sport</td>
+			<td th:text="${ticket.sport}"></td>
+		</tr>
+		<tr>
+			<td>Date</td>
+			<td th:text="${{ticket.date}}"></td>
+		</tr>
+		<tr>
+			<td>Discipline 1</td>
+			<td th:text="${ticket.discipline1}"></td>
+		</tr>
+		<tr th:if="${ticket.discipline2}">
+			<td>Discipline 2</td>
+			<td th:text="${ticket.discipline2}"></td>
+		</tr>
+		<tr th:if="${ticket.stadium}">
+			<td>Stadium</td>
+			<td th:text="${ticket.stadium}"></td>
+		</tr>
+		<tr>
+			<td>Tickets</td>
+			<td th:text="${ticket.totalTicketsMatch}"></td>
+		</tr>
+		<tr></tr>
+	</table>
+	<br>
+</body>
+</html>

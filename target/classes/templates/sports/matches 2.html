@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Matches Screen</title>
+<link rel="stylesheet" th:href="@{/css/matches.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+	<div class="header">
+		<a th:href="|/sports/overview|"><Button class="btn-black"><i class="fas fa-arrow-left"></i></Button></a>
+		<h2 th:text="'Matches ' + ${sport}"></h2>
+	</div>
+	<th:block th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+		<a th:href="|/sports/addMatch/${sport}|"><Button class="btn-black">Add Match</Button></a>
+	</th:block>
+	<br>
+	<br>
+	<table th:each="match: ${matches}">
+		<tr>
+			<td>Discipline</td>
+			<td th:text="${match.discipline}"></td>
+		</tr>
+		<tr>
+			<td>Date</td>
+			<td th:text="${{match.date}}"></td>
+		</tr>
+		<tr>
+			<td>Stadium</td>
+			<td th:text="${match.stadium}"></td>
+		</tr>
+		<tr>
+			<td>Available places</td>
+			<td th:text="${match.availablePlaces}"></td>
+		</tr>
+		<tr th:if="${#authorization.expression('hasRole(''ADMIN'')') || (#authorization.expression('hasRole(''USER'')') && match.availablePlaces > 0)}">
+    		<td>Price ticket</td>
+   			<td th:text="'&euro; ' + ${#numbers.formatDecimal(match.priceTicket, 1, 'COMMA', 2, 'POINT')}"></td>
+		</tr>
+		<tr></tr>
+		<th:block th:if="${#authorization.expression('hasRole(''USER'')') && match.availablePlaces > 0}">
+			<div class="ticket-info">
+                <a th:href="|/sports/buyTickets/${match.sport}/${match.id}|" class="btn-green">Buy tickets</a>
+                <p th:text="'Your tickets: ' + 'tickets'"></p>
+            </div>
+		</th:block>
+	</table>
+	<br>
+	<form th:action="@{/logout}" method="post">
+		<Button type="submit"class="btn-red">Logout</Button> 
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+	</form>
+</body>
+</html>

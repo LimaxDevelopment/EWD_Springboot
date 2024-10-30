@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="#{title_addMatch}"></title>
+<link rel="stylesheet" th:href="@{/css/addMatch.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+	<div class="header">
+		<a th:href="|/sports/overview/${sport}|"><Button class="btn-black"><i class="fas fa-arrow-left"></i></Button></a>
+		<h2 th:text="#{h2_addNewMatch(${sport})}"></h2>
+	</div>
+	<form th:action="@{'/sports/addMatch/' + ${sport}}"  th:object="${match}" method="post">
+		<p>
+			<label th:text="#{label_match_date}"></label>
+			<input type="datetime-local" th:field="*{date}"/>
+			<span th:if="${#fields.hasErrors('date')}" th:errorclass="error"
+				  th:errors="*{date}"></span> 
+		</p>
+		
+		<p>
+			<label th:text="#{label_match_stadium}"></label>
+			<select name="stadium" >
+				<option disabled selected th:text="#{option_stadium}"></option>
+				<option th:each="stadium : ${stadiums}" th:value="${stadium}" th:text="${stadium}"></option>
+			</select>
+		</p>
+		
+		<p>
+			<label th:text="#{label_match_discipline1}"></label>
+			<input type="text" th:field="*{discipline1}">
+			<span th:if="${#fields.hasErrors('discipline1')}" th:errorclass="error"
+				  th:errors="*{discipline1}"></span> 
+		</p>
+		
+		<p>
+			<label th:text="#{label_match_discipline2}"></label>
+			<input type="text" th:field="*{discipline2}">
+			<span th:if="${#fields.hasErrors('discipline2')}" th:errorclass="error"
+				  th:errors="*{discipline2}"></span> 
+		</p>
+		
+		<p>
+			<label th:text="#{label_match_olympic1}"></label>
+			<input type="text" th:field="*{olympicNr1}">
+			<span th:if="${#fields.hasErrors('olympicNr1')}" th:errorclass="error"
+				  th:errors="*{olympicNr1}"></span>
+			<br>
+			<label th:text="#{label_match_olympic2}"></label>
+			<input type="text" th:field="*{olympicNr2}">
+			<span th:if="${#fields.hasErrors('olympicNr2')}" th:errorclass="error"
+				  th:errors="*{olympicNr2}"></span>
+		</p>
+		
+		<p>
+			<label th:text="#{label_match_price_ticket}"></label>
+			<input type="text" th:field="*{priceTicket}">
+			<span th:if="${#fields.hasErrors('priceTicket')}" th:errorclass="error" 
+				  th:errors="*{priceTicket}"></span>
+		</p>
+		
+		<p>
+			<label th:text="#{label_match_available_places}"></label>
+			<input type="text" th:field="*{availablePlaces}">
+			<span th:if="${#fields.hasErrors('availablePlaces')}" th:errorclass="error" 
+				  th:errors="*{availablePlaces}"></span>
+		</p>
+		
+		<Button type="submit" class="btn-green" th:text="#{button_addMatch}"></Button>
+	</form>
+	<!--  <a th:href="/sports/${sport}"><Button>Return to Game Screen</Button></a> -->
+	<form th:action="@{/logout}" method="post">
+		<Button type="submit" class="btn-red" th:text="#{button_logout}"></Button>
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+	</form>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="'Overview Sports'"></title>
+<link rel="stylesheet" th:href="@{/css/overview.css}">
+</head>
+<body>
+	<h2 th:text="#{overview_title}"></h2>
+	<span th:text="#{lang.change}"></span>
+    <select id="locales">
+        <option value=""></option>
+        <option value="nl" th:text="#{lang.nl}"></option>
+        <option value="en" th:text="#{lang}"></option>
+    </select>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#locales").change(function () {
+            var selectedOption = $('#locales').val();
+            if (selectedOption != ''){
+                window.location.replace('?lang=' + selectedOption);
+            }
+        });
+    });
+    </script>
+	<ul>
+		<li th:each="sport: ${sportList}">
+			<a th:href="|/sports/overview/${sport.name}|" th:text="${sport.name}"></a>
+		</li>
+	</ul>
+	<th:block th:if="${#authorization.expression('hasRole(''USER'')') && user.totalTickets > 0}">
+		<a th:href="|/sports/tickets|"><Button class="button" th:text="#{button_tickets}"></Button></a>
+	</th:block>
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Logout" /> 
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+	</form>
+</body>
+</html>

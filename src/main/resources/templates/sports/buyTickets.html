@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" th:href="@{/css/buyTickets.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<title th:text="'Buy Tickets'"></title>
+</head>
+<body>
+	<a th:href="|/sports/overview/${sport}|"><Button class="btn-black"><i class="fas fa-arrow-left"></i></Button></a>
+	<h2 th:text="#{buy_tickets_for} + ' ' + ${match.discipline1} + ', ' + ${match.discipline2}" ></h2>
+    <h3 th:text="#{bought_tickets_match} + ' ' + ${ticket.totalTicketsMatch}"></h3>
+    <span th:if="${#fields.hasErrors('ticket.totalTicketsMatch')}" th:errorclass="error"
+				  th:errors="*{ticket.totalTicketsMatch}"></span> 
+	<h3 th:text="#{total_bought_tickets} + ' ' + ${user.totalTickets}"></h3>
+	<span th:if="${#fields.hasErrors('user.totalTickets')}" th:errorclass="error"
+				  th:errors="*{user.totalTickets}"></span> 
+	<h3 th:text="#{available_places} + ' ' + ${match.availablePlaces}"></h3>
+	<form th:action="@{'/sports/buyTickets/' + ${sport} + '/' + ${match.id}}" th:object="${ticket}" method="post">
+		<p>
+			<label th:text="#{selected_tickets}"></label>
+			<select name="numberOfTickets">
+				<option selected th:text="0">
+				<option th:each="i : ${#numbers.sequence(1, 20)}" th:value="${i}" th:text="${i}"></option>
+			</select>
+			<span th:if="${#fields.hasErrors('numberOfTickets')}" th:errorclass="error"
+				  th:errors="*{numberOfTickets}"></span> 
+		</p>
+		<Button type="submit" class="btn-green" th:text=#{button_buyTickets}></Button>
+	</form>
+	<form th:action="@{/logout}" method="post">
+		<Button type="submit" class="btn-red">Logout</Button> 
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+	</form>
+</body>
+</html>

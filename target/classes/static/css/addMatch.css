@@ -1,0 +1,98 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
+    margin: 0;
+    padding: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-between;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    flex-grow:1;
+}
+
+/* Buttons */
+.btn-black {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.btn-black:hover {
+  background-color: #555;
+}
+
+/* Form Styles */
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="datetime-local"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+/* Button Styles */
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+.btn-green {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.btn-green:hover {
+    background-color: #45a049;
+}
+
+.btn-red {
+    background-color: #f44336;
+    color: #fff;
+}
+
+.btn-red:hover {
+    background-color: #d32f2f;
+}
+
+/* Error Styles */
+.error {
+    color: #f44336;
+    font-weight: bold;
+    margin-top: 5px;
+}
